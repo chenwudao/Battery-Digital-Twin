@@ -1,0 +1,187 @@
+{
+  "voice": "en-US-AndrewNeural",
+  "rate": "+3%",
+  "entries": [
+    {
+      "kind": "slide",
+      "name": "01_title",
+      "image": "slides/01_title.png",
+      "pause_s": 1.0,
+      "audio": "audio/01_title.mp3",
+      "srt": "audio/01_title.srt",
+      "duration": 53.352,
+      "ok": true
+    },
+    {
+      "kind": "slide",
+      "name": "02_problem",
+      "image": "slides/02_problem.png",
+      "pause_s": 0.8,
+      "audio": "audio/02_problem.mp3",
+      "srt": "audio/02_problem.srt",
+      "duration": 31.8,
+      "ok": true
+    },
+    {
+      "kind": "slide",
+      "name": "03_architecture",
+      "image": "slides/03_architecture.png",
+      "pause_s": 0.8,
+      "audio": "audio/03_architecture.mp3",
+      "srt": "audio/03_architecture.srt",
+      "duration": 52.416,
+      "ok": true
+    },
+    {
+      "kind": "slide",
+      "name": "04_acquisition",
+      "image": "slides/04_acquisition.png",
+      "pause_s": 0.8,
+      "audio": "audio/04_acquisition.mp3",
+      "srt": "audio/04_acquisition.srt",
+      "duration": 47.352,
+      "ok": true
+    },
+    {
+      "kind": "slide",
+      "name": "05_mqtt",
+      "image": "slides/05_mqtt.png",
+      "pause_s": 0.8,
+      "audio": "audio/05_mqtt.mp3",
+      "srt": "audio/05_mqtt.srt",
+      "duration": 43.944,
+      "ok": true
+    },
+    {
+      "kind": "slide",
+      "name": "06_data",
+      "image": "slides/06_data.png",
+      "pause_s": 0.8,
+      "audio": "audio/06_data.mp3",
+      "srt": "audio/06_data.srt",
+      "duration": 44.544,
+      "ok": true
+    },
+    {
+      "kind": "slide",
+      "name": "07_model",
+      "image": "slides/07_model.png",
+      "pause_s": 0.8,
+      "audio": "audio/07_model.mp3",
+      "srt": "audio/07_model.srt",
+      "duration": 64.08,
+      "ok": true
+    },
+    {
+      "kind": "slide",
+      "name": "08_t1_t3",
+      "image": "slides/08_t1_t3.png",
+      "pause_s": 0.8,
+      "audio": "audio/08_t1_t3.mp3",
+      "srt": "audio/08_t1_t3.srt",
+      "duration": 55.68,
+      "ok": true
+    },
+    {
+      "kind": "slide",
+      "name": "09_t4_t5",
+      "image": "slides/09_t4_t5.png",
+      "pause_s": 0.8,
+      "audio": "audio/09_t4_t5.mp3",
+      "srt": "audio/09_t4_t5.srt",
+      "duration": 48.624,
+      "ok": true
+    },
+    {
+      "kind": "slide",
+      "name": "10_demo_intro",
+      "image": "slides/10_demo_intro.png",
+      "pause_s": 0.5,
+      "audio": "audio/10_demo_intro.mp3",
+      "srt": "audio/10_demo_intro.srt",
+      "duration": 19.8,
+      "ok": true
+    },
+    {
+      "kind": "slide",
+      "name": "11_conclusion",
+      "image": "slides/11_conclusion.png",
+      "pause_s": 1.0,
+      "audio": "audio/11_conclusion.mp3",
+      "srt": "audio/11_conclusion.srt",
+      "duration": 40.008,
+      "ok": true
+    },
+    {
+      "kind": "demo",
+      "name": "d01_overview",
+      "action": "overview",
+      "pause_s": 0.8,
+      "audio": "audio/d01_overview.mp3",
+      "srt": "audio/d01_overview.srt",
+      "duration": 20.664,
+      "ok": true
+    },
+    {
+      "kind": "demo",
+      "name": "d02_load",
+      "action": "load",
+      "pause_s": 1.5,
+      "audio": "audio/d02_load.mp3",
+      "srt": "audio/d02_load.srt",
+      "duration": 21.816,
+      "ok": true
+    },
+    {
+      "kind": "demo",
+      "name": "d03_fault",
+      "action": "fault",
+      "pause_s": 2.5,
+      "audio": "audio/d03_fault.mp3",
+      "srt": "audio/d03_fault.srt",
+      "duration": 20.352,
+      "ok": true
+    },
+    {
+      "kind": "demo",
+      "name": "d04_alarm",
+      "action": "alarm",
+      "pause_s": 1.0,
+      "audio": "audio/d04_alarm.mp3",
+      "srt": "audio/d04_alarm.srt",
+      "duration": 18.168,
+      "ok": true
+    },
+    {
+      "kind": "demo",
+      "name": "d05_whatif",
+      "action": "whatif",
+      "pause_s": 1.5,
+      "audio": "audio/d05_whatif.mp3",
+      "srt": "audio/d05_whatif.srt",
+      "duration": 20.544,
+      "ok": true
+    },
+    {
+      "kind": "demo",
+      "name": "d06_data",
+      "action": "data",
+      "pause_s": 1.0,
+      "audio": "audio/d06_data.mp3",
+      "srt": "audio/d06_data.srt",
+      "duration": 12.816,
+      "ok": true
+    },
+    {
+      "kind": "demo",
+      "name": "d07_lwt",
+      "action": "lwt",
+      "pause_s": 5.0,
+      "audio": "audio/d07_lwt.mp3",
+      "srt": "audio/d07_lwt.srt",
+      "duration": 16.824,
+      "ok": true
+    }
+  ],
+  "planned_total_s": 654.98
+}

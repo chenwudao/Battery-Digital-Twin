@@ -1,0 +1,28 @@
+1
+00:00:00,050 --> 00:00:12,487
+The acquisition table has five signals: pack voltage and current at one hertz, surface temperature at one hertz, ambient temperature at zero point one hertz, and a sequence plus source timestamp on every message.
+
+2
+00:00:12,487 --> 00:00:14,502
+Current is positive on discharge.
+
+3
+00:00:14,502 --> 00:00:20,873
+The simulator adds voltage, current, and temperature noise, quantization, and a small packet loss rate.
+
+4
+00:00:20,873 --> 00:00:27,257
+It also supports a simulation speed multiplier, so a two-hour discharge can be demonstrated in six minutes.
+
+5
+00:00:27,257 --> 00:00:31,456
+Source time is simulation time; ingest time is wall-clock time.
+
+6
+00:00:31,456 --> 00:00:42,827
+The assumptions are explicit: cells are balanced, capacity is constant within a run, the OCV curve comes from literature, convection is fixed, and hysteresis is ignored.
+
+7
+00:00:42,827 --> 00:00:47,305
+The plant uses private parameters; the twin only receives telemetry.
+

@@ -1,0 +1,60 @@
+asset_id: pack01
+run:
+  seed: 42
+  truth_path: data/truth_pack01.csv
+  log_level: INFO
+
+mqtt:
+  host: 127.0.0.1
+  port: 1883
+  keepalive_s: 30
+  qos: 1
+  base_topic: dt/battery/pack01
+  clean_session: false
+
+simulator:
+  profile: data/profiles/urban_2h.csv
+  dt_s: 1.0
+  speed: 10.0
+  initial_soc: 0.95
+  initial_core_temp_C: 25.0
+  initial_surface_temp_C: 25.0
+  cutoff_voltage_V: 39.0
+  low_soc_stop: 0.01
+  packet_loss: 0.005
+  store_every_s: 1.0
+
+twin:
+  config_path: config/twin_params.yaml
+  ocv_path: data/ocv_curve.csv
+  initial_soc: 0.60
+  cutoff_voltage_V: 39.0
+  temperature_limit_C: 55.0
+  temperature_warning_C: 50.0
+  state_interval_s: 1
+  remaining_recalc_s: 30
+  anomaly_warmup_s: 60
+
+storage:
+  db_path: data/battery_dt.db
+  expected_period_s: 1.0
+  max_gap_report_s: 5.0
+
+dashboard:
+  refresh_ms: 2000
+  history_minutes: 20
+  stale_after_s: 8.0
+  offline_after_s: 15.0
+
+anomaly:
+  thermal_residual_C: 2.0
+  thermal_sustain_s: 45.0
+  voltage_residual_V: 0.08
+  acute_voltage_residual_V: 0.30
+  voltage_sustain_s: 15.0
+  r0_ratio: 1.2
+  r0_sustain_s: 3.0
+  soc_consistency: 0.015
+  soc_consistency_sustain_s: 60.0
+  low_soc_warn: 0.15
+  clear_after_s: 1200.0

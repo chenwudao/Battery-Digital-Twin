@@ -1,0 +1,52 @@
+1
+00:00:00,050 --> 00:00:02,500
+The plant and twin intentionally differ.
+
+2
+00:00:02,500 --> 00:00:04,538
+The plant is a two-RC model.
+
+3
+00:00:04,538 --> 00:00:12,038
+Its resistance follows an Arrhenius temperature law, and it has two thermal nodes, core and surface, plus aging drift.
+
+4
+00:00:12,038 --> 00:00:15,631
+The twin is a one-RC model with a single thermal node.
+
+5
+00:00:15,631 --> 00:00:22,597
+Its voltage is OCV of state of charge, minus current times R zero, minus the RC polarization.
+
+6
+00:00:22,597 --> 00:00:28,555
+State of charge integrates current; the thermal node balances Joule heating against convection.
+
+7
+00:00:28,555 --> 00:00:31,553
+The twin does not trust the initial state of charge.
+
+8
+00:00:31,553 --> 00:00:35,157
+It starts at sixty percent while the plant starts at ninety-five.
+
+9
+00:00:35,157 --> 00:00:40,703
+An extended Kalman filter estimates SoC, RC voltage, and surface temperature.
+
+10
+00:00:40,703 --> 00:00:48,871
+A recursive least-squares tracker updates resistance, and a short-window regression separates a resistance change from a voltage-sensor offset.
+
+11
+00:00:48,871 --> 00:00:53,264
+State of health is nominal resistance divided by estimated resistance.
+
+12
+00:00:53,264 --> 00:01:01,007
+Offline, parameters are identified from HPPC data using least squares on measured voltage, current, and temperature only.
+
+13
+00:01:01,007 --> 00:01:04,065
+The fit is eight point eight millivolts RMS.
+

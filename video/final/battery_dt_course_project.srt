@@ -1,0 +1,515 @@
+1
+00:00:00,050 --> 00:00:05,206
+Battery packs are everywhere: scooters, robots, and small storage systems.
+
+2
+00:00:05,206 --> 00:00:07,026
+But the states that matter are hidden.
+
+3
+00:00:07,026 --> 00:00:14,987
+The operator sees voltage, current, and surface temperature, not the state of charge, the internal resistance, or the core temperature.
+
+4
+00:00:14,987 --> 00:00:17,475
+Failures are often handled after they happen.
+
+5
+00:00:17,475 --> 00:00:23,665
+This project builds a digital twin for a 48 volt, thirteen cell pack, about ten amp hours.
+
+6
+00:00:23,665 --> 00:00:33,058
+The user is a fleet or storage operator who needs three answers: how much runtime is left, is the pack getting less healthy, and will the planned load overheat it?
+
+7
+00:00:33,058 --> 00:00:40,885
+The twin estimates hidden states from measurements, predicts remaining runtime, explains anomalies, and supports what-if decisions.
+
+8
+00:00:40,885 --> 00:00:49,381
+We built all five components: acquisition, MQTT communication, data management, a hybrid model, and a user service.
+
+9
+00:00:49,381 --> 00:00:53,300
+Every claim is backed by an executable check or a measured number.
+
+10
+00:00:54,402 --> 00:00:57,034
+So the project is built around hidden states.
+
+11
+00:00:57,034 --> 00:01:01,585
+On the left are the measurements: voltage, current, and surface temperature.
+
+12
+00:01:01,585 --> 00:01:09,740
+In the middle are the three questions that operators actually ask: how much runtime is left, is the pack degrading, and will a planned load overheat it?
+
+13
+00:01:09,740 --> 00:01:11,742
+On the right is what the twin adds.
+
+14
+00:01:11,742 --> 00:01:20,383
+An extended Kalman filter fuses measurements; residuals detect and explain faults; and forward simulation answers what-if scenarios.
+
+15
+00:01:20,383 --> 00:01:26,111
+This is the value of a digital twin: it turns raw signals into an actionable estimate.
+
+16
+00:01:27,002 --> 00:01:29,379
+The architecture has five moving parts.
+
+17
+00:01:29,379 --> 00:01:32,837
+On the left, the plant simulator represents the real world.
+
+18
+00:01:32,837 --> 00:01:41,660
+It uses a two-RC electrical model, a two-node thermal model, temperature-dependent resistance, aging drift, noise, and packet loss.
+
+19
+00:01:41,660 --> 00:01:45,289
+It publishes telemetry at one hertz over MQTT.
+
+20
+00:01:45,289 --> 00:01:48,165
+The same broker feeds the ingestor and the twin.
+
+21
+00:01:48,165 --> 00:01:51,600
+The ingestor validates data and writes SQLite.
+
+22
+00:01:51,600 --> 00:02:00,168
+The twin runs a deliberately different model: one RC, one thermal node, an extended Kalman filter, and online resistance tracking.
+
+23
+00:02:00,168 --> 00:02:02,376
+It publishes state and alarms.
+
+24
+00:02:02,376 --> 00:02:07,000
+The dashboard consumes live MQTT and historical SQLite data.
+
+25
+00:02:07,000 --> 00:02:09,500
+The critical design choice is separation.
+
+26
+00:02:09,500 --> 00:02:14,342
+Plant parameters are private, and truth is written only to a local CSV.
+
+27
+00:02:14,342 --> 00:02:16,515
+The twin never subscribes to truth.
+
+28
+00:02:16,515 --> 00:02:19,342
+That avoids validating a model against itself.
+
+29
+00:02:20,218 --> 00:02:32,655
+The acquisition table has five signals: pack voltage and current at one hertz, surface temperature at one hertz, ambient temperature at zero point one hertz, and a sequence plus source timestamp on every message.
+
+30
+00:02:32,655 --> 00:02:34,670
+Current is positive on discharge.
+
+31
+00:02:34,670 --> 00:02:41,041
+The simulator adds voltage, current, and temperature noise, quantization, and a small packet loss rate.
+
+32
+00:02:41,041 --> 00:02:47,425
+It also supports a simulation speed multiplier, so a two-hour discharge can be demonstrated in six minutes.
+
+33
+00:02:47,425 --> 00:02:51,624
+Source time is simulation time; ingest time is wall-clock time.
+
+34
+00:02:51,624 --> 00:03:02,995
+The assumptions are explicit: cells are balanced, capacity is constant within a run, the OCV curve comes from literature, convection is fixed, and hysteresis is ignored.
+
+35
+00:03:02,995 --> 00:03:07,473
+The plant uses private parameters; the twin only receives telemetry.
+
+36
+00:03:08,370 --> 00:03:10,929
+Communication uses MQTT only.
+
+37
+00:03:10,929 --> 00:03:21,135
+There are separate topics for telemetry, metadata, status, twin state, twin alarms, load commands, fault injection, and what-if requests and responses.
+
+38
+00:03:21,135 --> 00:03:24,133
+Telemetry and twin outputs use QoS one.
+
+39
+00:03:24,133 --> 00:03:31,086
+Meta and status are retained, so a dashboard that connects late immediately knows the units and the asset state.
+
+40
+00:03:31,086 --> 00:03:37,737
+Status also configures a last will: if the simulator dies, the broker publishes offline, retained.
+
+41
+00:03:37,737 --> 00:03:43,853
+The ingestor uses a persistent session, so a normal disconnect does not drop QoS one messages.
+
+42
+00:03:43,853 --> 00:03:45,941
+Commands are logged to SQLite.
+
+43
+00:03:45,941 --> 00:03:47,640
+Field names carry units.
+
+44
+00:03:47,640 --> 00:03:52,239
+In the demo you will see actual topic traffic and the resulting dashboard updates.
+
+45
+00:03:53,114 --> 00:03:59,459
+Data management starts with a raw message table that keeps every JSON payload, topic, and arrival time.
+
+46
+00:03:59,459 --> 00:04:08,003
+Then a narrow clean table stores asset, variable, value, unit, source time, ingest time, sequence, and quality.
+
+47
+00:04:08,003 --> 00:04:12,517
+Every message is range checked; impossible values are marked invalid.
+
+48
+00:04:12,517 --> 00:04:15,309
+A uniqueness constraint removes duplicates.
+
+49
+00:04:15,309 --> 00:04:19,083
+Sequence gaps are recorded as gaps, not filled with zero.
+
+50
+00:04:19,083 --> 00:04:24,047
+For offline analysis, a one-hertz alignment function keeps missing values as NaN.
+
+51
+00:04:24,047 --> 00:04:27,396
+The database uses WAL and batched commits.
+
+52
+00:04:27,396 --> 00:04:32,080
+Queries and CSV export are available from the dashboard and a small CLI.
+
+53
+00:04:32,080 --> 00:04:37,578
+This separation keeps the twin auditable: raw data is never overwritten by cleaning.
+
+54
+00:04:38,458 --> 00:04:40,908
+The plant and twin intentionally differ.
+
+55
+00:04:40,908 --> 00:04:42,946
+The plant is a two-RC model.
+
+56
+00:04:42,946 --> 00:04:50,446
+Its resistance follows an Arrhenius temperature law, and it has two thermal nodes, core and surface, plus aging drift.
+
+57
+00:04:50,446 --> 00:04:54,039
+The twin is a one-RC model with a single thermal node.
+
+58
+00:04:54,039 --> 00:05:01,005
+Its voltage is OCV of state of charge, minus current times R zero, minus the RC polarization.
+
+59
+00:05:01,005 --> 00:05:06,963
+State of charge integrates current; the thermal node balances Joule heating against convection.
+
+60
+00:05:06,963 --> 00:05:09,961
+The twin does not trust the initial state of charge.
+
+61
+00:05:09,961 --> 00:05:13,565
+It starts at sixty percent while the plant starts at ninety-five.
+
+62
+00:05:13,565 --> 00:05:19,111
+An extended Kalman filter estimates SoC, RC voltage, and surface temperature.
+
+63
+00:05:19,111 --> 00:05:27,279
+A recursive least-squares tracker updates resistance, and a short-window regression separates a resistance change from a voltage-sensor offset.
+
+64
+00:05:27,279 --> 00:05:31,672
+State of health is nominal resistance divided by estimated resistance.
+
+65
+00:05:31,672 --> 00:05:39,415
+Offline, parameters are identified from HPPC data using least squares on measured voltage, current, and temperature only.
+
+66
+00:05:39,415 --> 00:05:42,473
+The fit is eight point eight millivolts RMS.
+
+67
+00:05:43,338 --> 00:05:44,877
+Now the quantitative part.
+
+68
+00:05:44,877 --> 00:05:50,423
+First, open-loop voltage accuracy on a drive cycle that was not used for identification.
+
+69
+00:05:50,423 --> 00:05:56,504
+The one-RC twin has thirteen millivolts RMS error and forty-two millivolts maximum error.
+
+70
+00:05:56,504 --> 00:06:02,147
+A no-relaxation baseline is two hundred eighty-six millivolts, so the RC branch matters.
+
+71
+00:06:02,147 --> 00:06:03,991
+Second, state of charge.
+
+72
+00:06:03,991 --> 00:06:10,521
+Starting deliberately wrong by thirty-five points, the filter converges within two percent in six seconds.
+
+73
+00:06:10,521 --> 00:06:14,550
+After convergence, RMSE is zero point one one percent.
+
+74
+00:06:14,550 --> 00:06:19,574
+A pure coulomb counter with the same wrong initial value stays at thirty-five percent error.
+
+75
+00:06:19,574 --> 00:06:21,188
+Third, endurance.
+
+76
+00:06:21,188 --> 00:06:28,919
+At ten checkpoints on a two-hour drive cycle, the twin predicts time to cutoff with four point two percent mean absolute percentage error.
+
+77
+00:06:28,919 --> 00:06:35,678
+Linear voltage extrapolation has over one hundred percent error because load changes make the voltage slope misleading.
+
+78
+00:06:35,678 --> 00:06:38,955
+These are the kinds of numbers that separate a model from a curve.
+
+79
+00:06:39,818 --> 00:06:44,051
+For anomaly detection, thresholds are fixed only from normal data.
+
+80
+00:06:44,051 --> 00:06:47,899
+On one hour of normal operation there are zero false alarms.
+
+81
+00:06:47,899 --> 00:06:53,578
+A fifty percent resistance step is detected in sixty-three seconds by the residual regression.
+
+82
+00:06:53,578 --> 00:07:02,680
+A cooling failure under load is detected in three hundred fifty-two seconds, compared with one thousand one hundred fifty-eight seconds for a fixed temperature threshold.
+
+83
+00:07:02,680 --> 00:07:07,777
+A half-volt voltage-sensor step is caught in one second by the acute residual check.
+
+84
+00:07:07,777 --> 00:07:12,534
+For robustness, we add five percent packet loss and double the sensor noise.
+
+85
+00:07:12,534 --> 00:07:18,942
+State-of-charge RMSE grows from zero point zero nine seven to zero point one zero eight percent.
+
+86
+00:07:18,942 --> 00:07:24,998
+Voltage residual RMS doubles, as expected, and temperature accuracy is unchanged.
+
+87
+00:07:24,998 --> 00:07:28,348
+This is not perfection, but it is measured degradation.
+
+88
+00:07:29,242 --> 00:07:31,109
+Now the live integration demo.
+
+89
+00:07:31,109 --> 00:07:36,679
+The broker, ingestor, twin, simulator, and dashboard are started with one command.
+
+90
+00:07:36,679 --> 00:07:40,308
+The dashboard is receiving the actual MQTT stream.
+
+91
+00:07:40,308 --> 00:07:48,937
+We will change the load, inject a cooling fault, read the alarm, run a what-if scenario, and finally trigger the last will by killing the simulator.
+
+92
+00:07:49,542 --> 00:07:51,215
+This is the live dashboard.
+
+93
+00:07:51,215 --> 00:07:54,225
+The green banner shows fresh MQTT data.
+
+94
+00:07:54,225 --> 00:08:01,033
+The top row shows state of charge, state of health from resistance, estimated core temperature, and remaining runtime.
+
+95
+00:08:01,033 --> 00:08:06,870
+The charts compare measured and twin-predicted voltage, temperature, SoC, and residuals.
+
+96
+00:08:06,870 --> 00:08:10,110
+The twin is updating on every telemetry sample.
+
+97
+00:08:11,042 --> 00:08:14,329
+I will apply a constant eighteen-amp load for the next hour.
+
+98
+00:08:14,329 --> 00:08:17,666
+The dashboard publishes a load command to the simulator.
+
+99
+00:08:17,666 --> 00:08:27,157
+The plant changes its current; new telemetry arrives at one hertz; and the twin recomputes SoC, power loss, temperature, and remaining runtime.
+
+100
+00:08:27,157 --> 00:08:32,763
+This is the core digital-twin loop: new data changes the digital representation.
+
+101
+00:08:34,417 --> 00:08:37,813
+Now I inject a cooling failure while the pack is under load.
+
+102
+00:08:37,813 --> 00:08:42,146
+The plant reduces its surface-to-ambient conductance to five percent.
+
+103
+00:08:42,146 --> 00:08:48,869
+The measured temperature rises faster than the twin thermal model expects, so the pre-fit thermal residual grows.
+
+104
+00:08:48,869 --> 00:08:54,670
+After the residual stays above the calibrated threshold, the detector raises a thermal anomaly.
+
+105
+00:08:57,292 --> 00:08:59,183
+The alarm is not just a red light.
+
+106
+00:08:59,183 --> 00:09:07,072
+It shows the thermal residual and the estimated resistance ratio, and it recommends reducing load and inspecting the cooling path.
+
+107
+00:09:07,072 --> 00:09:10,809
+I follow the recommendation and reduce the load to five amps.
+
+108
+00:09:10,809 --> 00:09:15,360
+Normal operation produced zero false alarms with the same thresholds.
+
+109
+00:09:16,417 --> 00:09:18,150
+Next, a what-if decision.
+
+110
+00:09:18,150 --> 00:09:22,058
+Twenty amps, thirty minutes, thirty-five degree ambient.
+
+111
+00:09:22,058 --> 00:09:27,981
+The twin starts from the current SoC, resistance, and temperature, and simulates forward in time.
+
+112
+00:09:27,981 --> 00:09:34,316
+It reports both the time to cutoff voltage and the time to the temperature limit, then recommends a safer current.
+
+113
+00:09:34,316 --> 00:09:36,876
+The response comes back over MQTT.
+
+114
+00:09:38,417 --> 00:09:46,886
+The data tab shows the raw and clean SQLite tables, the latest measurements, source versus ingest timestamps, and CSV export.
+
+115
+00:09:46,886 --> 00:09:51,133
+Every command and what-if request is also logged for traceability.
+
+116
+00:09:52,292 --> 00:09:54,317
+Finally, I kill the simulator.
+
+117
+00:09:54,317 --> 00:09:58,055
+The broker publishes the retained last-will offline status.
+
+118
+00:09:58,055 --> 00:10:03,504
+The dashboard first warns that data is stale, then turns red after the offline threshold.
+
+119
+00:10:03,504 --> 00:10:06,635
+The twin and historical database remain available.
+
+120
+00:10:06,635 --> 00:10:09,013
+This is the complete integration path.
+
+121
+00:10:14,167 --> 00:10:15,888
+What does this project not claim?
+
+122
+00:10:15,888 --> 00:10:18,388
+It is a simulation, not a real pack.
+
+123
+00:10:18,388 --> 00:10:24,007
+Cells are treated as identical, so cell imbalance and local hot spots are out of scope.
+
+124
+00:10:24,007 --> 00:10:28,206
+The one-RC model degrades at low state of charge and low temperature.
+
+125
+00:10:28,206 --> 00:10:32,102
+The anomaly thresholds are calibrated on one normal duty cycle.
+
+126
+00:10:32,102 --> 00:10:39,311
+Small sensor offsets are hard to separate from SoC changes, and SQLite is fine for one asset, not a fleet.
+
+127
+00:10:39,311 --> 00:10:48,316
+Still, the twin closes the loop: measurements update hidden states, alarms explain themselves, and what-if requests use the same physics.
+
+128
+00:10:48,316 --> 00:10:53,352
+The result is a working, reproducible course project with executable evidence.
+
+129
+00:10:53,352 --> 00:10:54,092
+Thank you.

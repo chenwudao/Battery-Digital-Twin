@@ -1,0 +1,36 @@
+1
+00:00:00,050 --> 00:00:05,206
+Battery packs are everywhere: scooters, robots, and small storage systems.
+
+2
+00:00:05,206 --> 00:00:07,026
+But the states that matter are hidden.
+
+3
+00:00:07,026 --> 00:00:14,987
+The operator sees voltage, current, and surface temperature, not the state of charge, the internal resistance, or the core temperature.
+
+4
+00:00:14,987 --> 00:00:17,475
+Failures are often handled after they happen.
+
+5
+00:00:17,475 --> 00:00:23,665
+This project builds a digital twin for a 48 volt, thirteen cell pack, about ten amp hours.
+
+6
+00:00:23,665 --> 00:00:33,058
+The user is a fleet or storage operator who needs three answers: how much runtime is left, is the pack getting less healthy, and will the planned load overheat it?
+
+7
+00:00:33,058 --> 00:00:40,885
+The twin estimates hidden states from measurements, predicts remaining runtime, explains anomalies, and supports what-if decisions.
+
+8
+00:00:40,885 --> 00:00:49,381
+We built all five components: acquisition, MQTT communication, data management, a hybrid model, and a user service.
+
+9
+00:00:49,381 --> 00:00:53,300
+Every claim is backed by an executable check or a measured number.
+

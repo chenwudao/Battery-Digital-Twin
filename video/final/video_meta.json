@@ -1,0 +1,22 @@
+{
+  "duration_s": 655.278,
+  "duration_min": 10.92,
+  "segments": [
+    "01_title.mp4",
+    "02_problem.mp4",
+    "03_architecture.mp4",
+    "04_acquisition.mp4",
+    "05_mqtt.mp4",
+    "06_data.mp4",
+    "07_model.mp4",
+    "08_t1_t3.mp4",
+    "09_t4_t5.mp4",
+    "10_demo_intro.mp4",
+    "live_demo.mp4",
+    "11_conclusion.mp4"
+  ],
+  "subtitles": "video/final/battery_dt_course_project.srt",
+  "video": "video/final/battery_dt_course_project_1080p.mp4",
+  "slides": 11,
+  "demo_scenes": 7
+}

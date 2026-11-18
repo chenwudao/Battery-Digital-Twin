@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+data/*.db
+data/*.db-*
+data/truth_*.csv
+logs/*.log
+.DS_Store
+logs/matplotlib/
+
+video/frames_demo/
+video/segments/
+video/recording_stack.log
+video/__pycache__/
+video/audio/*.wav

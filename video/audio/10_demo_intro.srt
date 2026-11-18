@@ -1,0 +1,16 @@
+1
+00:00:00,050 --> 00:00:01,917
+Now the live integration demo.
+
+2
+00:00:01,917 --> 00:00:07,487
+The broker, ingestor, twin, simulator, and dashboard are started with one command.
+
+3
+00:00:07,487 --> 00:00:11,116
+The dashboard is receiving the actual MQTT stream.
+
+4
+00:00:11,116 --> 00:00:19,745
+We will change the load, inject a cooling fault, read the alarm, run a what-if scenario, and finally trigger the last will by killing the simulator.
+

@@ -1,0 +1,36 @@
+1
+00:00:00,050 --> 00:00:02,609
+Communication uses MQTT only.
+
+2
+00:00:02,609 --> 00:00:12,815
+There are separate topics for telemetry, metadata, status, twin state, twin alarms, load commands, fault injection, and what-if requests and responses.
+
+3
+00:00:12,815 --> 00:00:15,813
+Telemetry and twin outputs use QoS one.
+
+4
+00:00:15,813 --> 00:00:22,766
+Meta and status are retained, so a dashboard that connects late immediately knows the units and the asset state.
+
+5
+00:00:22,766 --> 00:00:29,417
+Status also configures a last will: if the simulator dies, the broker publishes offline, retained.
+
+6
+00:00:29,417 --> 00:00:35,533
+The ingestor uses a persistent session, so a normal disconnect does not drop QoS one messages.
+
+7
+00:00:35,533 --> 00:00:37,621
+Commands are logged to SQLite.
+
+8
+00:00:37,621 --> 00:00:39,320
+Field names carry units.
+
+9
+00:00:39,320 --> 00:00:43,919
+In the demo you will see actual topic traffic and the resulting dashboard updates.
+

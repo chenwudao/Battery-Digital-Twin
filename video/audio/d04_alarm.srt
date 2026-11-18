@@ -1,0 +1,16 @@
+1
+00:00:00,050 --> 00:00:01,941
+The alarm is not just a red light.
+
+2
+00:00:01,941 --> 00:00:09,830
+It shows the thermal residual and the estimated resistance ratio, and it recommends reducing load and inspecting the cooling path.
+
+3
+00:00:09,830 --> 00:00:13,567
+I follow the recommendation and reduce the load to five amps.
+
+4
+00:00:13,567 --> 00:00:18,118
+Normal operation produced zero false alarms with the same thresholds.
+

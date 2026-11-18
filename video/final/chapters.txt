@@ -1,0 +1,18 @@
+00:00 Title and problem
+00:54 Hidden states and user decisions
+01:27 Architecture and truth separation
+02:20 Acquisition and assumptions
+03:08 MQTT contract
+03:53 Data management
+04:38 Model and identification
+05:43 Evaluation T1–T3
+06:40 Evaluation T4–T5
+07:29 Integrated demo setup
+07:49 Live dashboard overview
+08:11 Apply an 18 A load
+08:34 Inject cooling failure
+08:57 Alarm explanation and safe load
+09:16 What-if decision
+09:38 SQLite data layer
+09:52 LWT offline / stale data
+10:14 Conclusion and limitations

@@ -1,0 +1,26 @@
+# Ground-truth plant parameters. The twin process never reads this file.
+cell_count: 13
+capacity_Ah: 10.0
+r0_ref_ohm: 0.105
+r1_ohm: 0.035
+c1_F: 1400.0
+r2_ohm: 0.022
+c2_F: 9000.0
+arrhenius_Ea_J_mol: 12000.0
+temperature_ref_C: 25.0
+thermal:
+  core_heat_capacity_J_K: 1900.0
+  surface_heat_capacity_J_K: 650.0
+  core_surface_conductance_W_K: 9.0
+  surface_ambient_conductance_W_K: 4.2
+aging:
+  r0_growth_per_Ah: 0.0008
+  capacity_loss_per_Ah: 0.00005
+measurement:
+  voltage_noise_std_V: 0.005
+  current_noise_std_A: 0.05
+  surface_temp_noise_std_C: 0.5
+  ambient_temp_noise_std_C: 0.15
+  voltage_quantization_V: 0.001
+  current_quantization_A: 0.01
+  temperature_quantization_C: 0.1

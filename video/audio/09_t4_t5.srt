@@ -1,0 +1,36 @@
+1
+00:00:00,050 --> 00:00:04,283
+For anomaly detection, thresholds are fixed only from normal data.
+
+2
+00:00:04,283 --> 00:00:08,131
+On one hour of normal operation there are zero false alarms.
+
+3
+00:00:08,131 --> 00:00:13,810
+A fifty percent resistance step is detected in sixty-three seconds by the residual regression.
+
+4
+00:00:13,810 --> 00:00:22,912
+A cooling failure under load is detected in three hundred fifty-two seconds, compared with one thousand one hundred fifty-eight seconds for a fixed temperature threshold.
+
+5
+00:00:22,912 --> 00:00:28,009
+A half-volt voltage-sensor step is caught in one second by the acute residual check.
+
+6
+00:00:28,009 --> 00:00:32,766
+For robustness, we add five percent packet loss and double the sensor noise.
+
+7
+00:00:32,766 --> 00:00:39,174
+State-of-charge RMSE grows from zero point zero nine seven to zero point one zero eight percent.
+
+8
+00:00:39,174 --> 00:00:45,230
+Voltage residual RMS doubles, as expected, and temperature accuracy is unchanged.
+
+9
+00:00:45,230 --> 00:00:48,580
+This is not perfection, but it is measured degradation.
+

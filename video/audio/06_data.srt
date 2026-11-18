@@ -1,0 +1,36 @@
+1
+00:00:00,050 --> 00:00:06,395
+Data management starts with a raw message table that keeps every JSON payload, topic, and arrival time.
+
+2
+00:00:06,395 --> 00:00:14,939
+Then a narrow clean table stores asset, variable, value, unit, source time, ingest time, sequence, and quality.
+
+3
+00:00:14,939 --> 00:00:19,453
+Every message is range checked; impossible values are marked invalid.
+
+4
+00:00:19,453 --> 00:00:22,245
+A uniqueness constraint removes duplicates.
+
+5
+00:00:22,245 --> 00:00:26,019
+Sequence gaps are recorded as gaps, not filled with zero.
+
+6
+00:00:26,019 --> 00:00:30,983
+For offline analysis, a one-hertz alignment function keeps missing values as NaN.
+
+7
+00:00:30,983 --> 00:00:34,332
+The database uses WAL and batched commits.
+
+8
+00:00:34,332 --> 00:00:39,016
+Queries and CSV export are available from the dashboard and a small CLI.
+
+9
+00:00:39,016 --> 00:00:44,514
+This separation keeps the twin auditable: raw data is never overwritten by cleaning.
+

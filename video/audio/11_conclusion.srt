@@ -1,0 +1,36 @@
+1
+00:00:00,050 --> 00:00:01,771
+What does this project not claim?
+
+2
+00:00:01,771 --> 00:00:04,271
+It is a simulation, not a real pack.
+
+3
+00:00:04,271 --> 00:00:09,890
+Cells are treated as identical, so cell imbalance and local hot spots are out of scope.
+
+4
+00:00:09,890 --> 00:00:14,089
+The one-RC model degrades at low state of charge and low temperature.
+
+5
+00:00:14,089 --> 00:00:17,985
+The anomaly thresholds are calibrated on one normal duty cycle.
+
+6
+00:00:17,985 --> 00:00:25,194
+Small sensor offsets are hard to separate from SoC changes, and SQLite is fine for one asset, not a fleet.
+
+7
+00:00:25,194 --> 00:00:34,199
+Still, the twin closes the loop: measurements update hidden states, alarms explain themselves, and what-if requests use the same physics.
+
+8
+00:00:34,199 --> 00:00:39,235
+The result is a working, reproducible course project with executable evidence.
+
+9
+00:00:39,235 --> 00:00:39,975
+Thank you.
+

@@ -1,0 +1,48 @@
+1
+00:00:00,050 --> 00:00:01,589
+Now the quantitative part.
+
+2
+00:00:01,589 --> 00:00:07,135
+First, open-loop voltage accuracy on a drive cycle that was not used for identification.
+
+3
+00:00:07,135 --> 00:00:13,216
+The one-RC twin has thirteen millivolts RMS error and forty-two millivolts maximum error.
+
+4
+00:00:13,216 --> 00:00:18,859
+A no-relaxation baseline is two hundred eighty-six millivolts, so the RC branch matters.
+
+5
+00:00:18,859 --> 00:00:20,703
+Second, state of charge.
+
+6
+00:00:20,703 --> 00:00:27,233
+Starting deliberately wrong by thirty-five points, the filter converges within two percent in six seconds.
+
+7
+00:00:27,233 --> 00:00:31,262
+After convergence, RMSE is zero point one one percent.
+
+8
+00:00:31,262 --> 00:00:36,286
+A pure coulomb counter with the same wrong initial value stays at thirty-five percent error.
+
+9
+00:00:36,286 --> 00:00:37,900
+Third, endurance.
+
+10
+00:00:37,900 --> 00:00:45,631
+At ten checkpoints on a two-hour drive cycle, the twin predicts time to cutoff with four point two percent mean absolute percentage error.
+
+11
+00:00:45,631 --> 00:00:52,390
+Linear voltage extrapolation has over one hundred percent error because load changes make the voltage slope misleading.
+
+12
+00:00:52,390 --> 00:00:55,667
+These are the kinds of numbers that separate a model from a curve.
+

@@ -1,0 +1,16 @@
+1
+00:00:00,050 --> 00:00:03,446
+Now I inject a cooling failure while the pack is under load.
+
+2
+00:00:03,446 --> 00:00:07,779
+The plant reduces its surface-to-ambient conductance to five percent.
+
+3
+00:00:07,779 --> 00:00:14,502
+The measured temperature rises faster than the twin thermal model expects, so the pre-fit thermal residual grows.
+
+4
+00:00:14,502 --> 00:00:20,303
+After the residual stays above the calibrated threshold, the detector raises a thermal anomaly.
+

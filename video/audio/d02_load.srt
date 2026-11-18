@@ -1,0 +1,16 @@
+1
+00:00:00,050 --> 00:00:03,337
+I will apply a constant eighteen-amp load for the next hour.
+
+2
+00:00:03,337 --> 00:00:06,674
+The dashboard publishes a load command to the simulator.
+
+3
+00:00:06,674 --> 00:00:16,165
+The plant changes its current; new telemetry arrives at one hertz; and the twin recomputes SoC, power loss, temperature, and remaining runtime.
+
+4
+00:00:16,165 --> 00:00:21,771
+This is the core digital-twin loop: new data changes the digital representation.
+

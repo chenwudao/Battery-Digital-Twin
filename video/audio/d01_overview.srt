@@ -1,0 +1,20 @@
+1
+00:00:00,050 --> 00:00:01,723
+This is the live dashboard.
+
+2
+00:00:01,723 --> 00:00:04,733
+The green banner shows fresh MQTT data.
+
+3
+00:00:04,733 --> 00:00:11,541
+The top row shows state of charge, state of health from resistance, estimated core temperature, and remaining runtime.
+
+4
+00:00:11,541 --> 00:00:17,378
+The charts compare measured and twin-predicted voltage, temperature, SoC, and residuals.
+
+5
+00:00:17,378 --> 00:00:20,618
+The twin is updating on every telemetry sample.
+

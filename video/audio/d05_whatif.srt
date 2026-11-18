@@ -1,0 +1,20 @@
+1
+00:00:00,050 --> 00:00:01,783
+Next, a what-if decision.
+
+2
+00:00:01,783 --> 00:00:05,691
+Twenty amps, thirty minutes, thirty-five degree ambient.
+
+3
+00:00:05,691 --> 00:00:11,614
+The twin starts from the current SoC, resistance, and temperature, and simulates forward in time.
+
+4
+00:00:11,614 --> 00:00:17,949
+It reports both the time to cutoff voltage and the time to the temperature limit, then recommends a safer current.
+
+5
+00:00:17,949 --> 00:00:20,509
+The response comes back over MQTT.
+

@@ -1,0 +1,24 @@
+1
+00:00:00,050 --> 00:00:02,682
+So the project is built around hidden states.
+
+2
+00:00:02,682 --> 00:00:07,233
+On the left are the measurements: voltage, current, and surface temperature.
+
+3
+00:00:07,233 --> 00:00:15,388
+In the middle are the three questions that operators actually ask: how much runtime is left, is the pack degrading, and will a planned load overheat it?
+
+4
+00:00:15,388 --> 00:00:17,390
+On the right is what the twin adds.
+
+5
+00:00:17,390 --> 00:00:26,031
+An extended Kalman filter fuses measurements; residuals detect and explain faults; and forward simulation answers what-if scenarios.
+
+6
+00:00:26,031 --> 00:00:31,759
+This is the value of a digital twin: it turns raw signals into an actionable estimate.
+

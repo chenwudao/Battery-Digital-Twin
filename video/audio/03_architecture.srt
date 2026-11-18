@@ -1,0 +1,52 @@
+1
+00:00:00,050 --> 00:00:02,427
+The architecture has five moving parts.
+
+2
+00:00:02,427 --> 00:00:05,885
+On the left, the plant simulator represents the real world.
+
+3
+00:00:05,885 --> 00:00:14,708
+It uses a two-RC electrical model, a two-node thermal model, temperature-dependent resistance, aging drift, noise, and packet loss.
+
+4
+00:00:14,708 --> 00:00:18,337
+It publishes telemetry at one hertz over MQTT.
+
+5
+00:00:18,337 --> 00:00:21,213
+The same broker feeds the ingestor and the twin.
+
+6
+00:00:21,213 --> 00:00:24,648
+The ingestor validates data and writes SQLite.
+
+7
+00:00:24,648 --> 00:00:33,216
+The twin runs a deliberately different model: one RC, one thermal node, an extended Kalman filter, and online resistance tracking.
+
+8
+00:00:33,216 --> 00:00:35,424
+It publishes state and alarms.
+
+9
+00:00:35,424 --> 00:00:40,048
+The dashboard consumes live MQTT and historical SQLite data.
+
+10
+00:00:40,048 --> 00:00:42,548
+The critical design choice is separation.
+
+11
+00:00:42,548 --> 00:00:47,390
+Plant parameters are private, and truth is written only to a local CSV.
+
+12
+00:00:47,390 --> 00:00:49,563
+The twin never subscribes to truth.
+
+13
+00:00:49,563 --> 00:00:52,390
+That avoids validating a model against itself.
+

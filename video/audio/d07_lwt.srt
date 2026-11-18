@@ -1,0 +1,20 @@
+1
+00:00:00,050 --> 00:00:02,075
+Finally, I kill the simulator.
+
+2
+00:00:02,075 --> 00:00:05,813
+The broker publishes the retained last-will offline status.
+
+3
+00:00:05,813 --> 00:00:11,262
+The dashboard first warns that data is stale, then turns red after the offline threshold.
+
+4
+00:00:11,262 --> 00:00:14,393
+The twin and historical database remain available.
+
+5
+00:00:14,393 --> 00:00:16,771
+This is the complete integration path.
+

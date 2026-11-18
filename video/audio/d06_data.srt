@@ -1,0 +1,8 @@
+1
+00:00:00,050 --> 00:00:08,519
+The data tab shows the raw and clean SQLite tables, the latest measurements, source versus ingest timestamps, and CSV export.
+
+2
+00:00:08,519 --> 00:00:12,766
+Every command and what-if request is also logged for traceability.
+
